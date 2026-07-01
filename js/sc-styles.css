@@ -1,0 +1,386 @@
+/* ═══════════════════════════════════════════════════════════════════
+   sc-styles.css — Steinkamp Container · Styles du système SC
+   ═══════════════════════════════════════════════════════════════════
+   Styles pour :
+   - Sélecteur de langue
+   - Panier dynamique (page panier)
+   - Formulaire de commande
+   - Notifications
+   - Animations
+   Tous les styles respectent le design original Woodmart/Steinkamp.
+   ═══════════════════════════════════════════════════════════════════ */
+/* ─────────────────────────────────────────────
+   SÉLECTEUR DE LANGUE
+   ───────────────────────────────────────────── */
+#sc-lang-bar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+  z-index: 1000;
+}
+.sc-lang-current {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: inherit;
+  transition: background 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+.sc-lang-current:hover,
+#sc-lang-bar.sc-open .sc-lang-current {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.5);
+}
+.sc-chevron {
+  font-size: 10px;
+  transition: transform 0.2s;
+  opacity: 0.7;
+}
+#sc-lang-bar.sc-open .sc-chevron {
+  transform: rotate(180deg);
+}
+.sc-lang-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 160px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+  animation: sc-dropdown-in 0.18s ease-out;
+}
+@keyframes sc-dropdown-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.sc-lang-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  text-align: left;
+  transition: background 0.15s, color 0.15s;
+}
+.sc-lang-option:hover {
+  background: #f3f4f6;
+  color: #111;
+}
+.sc-lang-option.sc-lang-active {
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-weight: 600;
+}
+.sc-flag {
+  font-size: 18px;
+  line-height: 1;
+}
+/* ─────────────────────────────────────────────
+   COMPTEUR PANIER — Animation bump
+   ───────────────────────────────────────────── */
+@keyframes sc-bump {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.4); }
+  70%  { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+.sc-bump {
+  animation: sc-bump 0.4s ease;
+}
+/* ─────────────────────────────────────────────
+   PAGE PANIER — Tableau dynamique
+   ───────────────────────────────────────────── */
+#sc-cart-table .sc-remove-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: #fee2e2;
+  color: #dc2626;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+#sc-cart-table .sc-remove-btn:hover {
+  background: #dc2626;
+  color: #fff;
+  transform: scale(1.1);
+}
+#sc-cart-table .sc-qty-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  color: #374151;
+  transition: background 0.15s, border-color 0.15s;
+  vertical-align: middle;
+}
+#sc-cart-table .sc-qty-btn:hover {
+  background: #e5e7eb;
+  border-color: #9ca3af;
+}
+#sc-cart-table .sc-qty-input {
+  display: inline-block;
+  width: 60px !important;
+  text-align: center;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  padding: 4px;
+  font-size: 14px;
+  vertical-align: middle;
+  -moz-appearance: textfield;
+}
+#sc-cart-table .sc-qty-input::-webkit-outer-spin-button,
+#sc-cart-table .sc-qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Totaux du panier */
+.sc-cart-totals-block {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 24px;
+}
+.sc-cart-checkout-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: #1a1a2e;
+  color: #fff !important;
+  text-align: center;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  margin-top: 12px;
+  transition: background 0.2s, transform 0.15s;
+  letter-spacing: 0.03em;
+}
+.sc-cart-checkout-btn:hover {
+  background: #2d2d4e;
+  transform: translateY(-1px);
+}
+/* ─────────────────────────────────────────────
+   FORMULAIRE DE COMMANDE SC
+   ───────────────────────────────────────────── */
+#sc-order-section {
+  margin: 40px 0;
+}
+.sc-form-section {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  max-width: 720px;
+  margin: 0 auto;
+}
+.sc-form-section h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #1a1a2e;
+}
+.sc-honeypot {
+  display: none !important;
+  opacity: 0;
+  position: absolute;
+  left: -9999px;
+}
+.sc-form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 16px;
+}
+.sc-form-row .sc-field {
+  flex: 1;
+}
+.sc-field {
+  margin-bottom: 16px;
+}
+.sc-field label {
+  display: block;
+  font-weight: 600;
+  font-size: 13px;
+  color: #374151;
+  margin-bottom: 6px;
+}
+.sc-field input,
+.sc-field textarea,
+.sc-field select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #111;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+.sc-field input:focus,
+.sc-field textarea:focus,
+.sc-field select:focus {
+  outline: none;
+  border-color: #1a1a2e;
+  box-shadow: 0 0 0 3px rgba(26,26,46,0.10);
+}
+.sc-field input.sc-field-error,
+.sc-field textarea.sc-field-error {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220,38,38,0.10);
+}
+.sc-btn-submit {
+  display: block;
+  width: 100%;
+  padding: 14px 24px;
+  background: #1a1a2e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background 0.2s, transform 0.15s;
+  letter-spacing: 0.03em;
+}
+.sc-btn-submit:hover {
+  background: #2d2d4e;
+  transform: translateY(-1px);
+}
+.sc-btn-submit:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+}
+.sc-form-status {
+  margin-top: 16px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.sc-form-success {
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+.sc-form-error {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+@media (max-width: 640px) {
+  .sc-form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  .sc-form-section {
+    padding: 24px 16px;
+  }
+}
+/* ─────────────────────────────────────────────
+   NOTIFICATION D'AJOUT AU PANIER
+   ───────────────────────────────────────────── */
+#sc-add-notice {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  background: #065f46;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  z-index: 99999;
+  font-size: 14px;
+  max-width: 320px;
+  transition: opacity 0.35s;
+  pointer-events: none;
+}
+/* ─────────────────────────────────────────────
+   BOUTONS "AJOUTER AU PANIER" — Feedback visuel
+   ───────────────────────────────────────────── */
+.add_to_cart_button,
+.add-to-cart-loop {
+  transition: background 0.25s, transform 0.15s !important;
+  cursor: pointer !important;
+}
+.add_to_cart_button:hover,
+.add-to-cart-loop:hover {
+  transform: translateY(-1px);
+}
+/* ─────────────────────────────────────────────
+   SCROLL-TO-TOP
+   ───────────────────────────────────────────── */
+#sc-scroll-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 44px;
+  height: 44px;
+  background: #1a1a2e;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+#sc-scroll-top:hover {
+  transform: translateY(-3px);
+  background: #2d2d4e;
+}
+/* ─────────────────────────────────────────────
+   RESPONSIVE — Sélecteur de langue mobile
+   ───────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  #sc-lang-bar {
+    margin-left: 0 !important;
+  }
+  .sc-lang-current {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+  .sc-lang-dropdown {
+    right: auto;
+    left: 0;
+  }
+}
